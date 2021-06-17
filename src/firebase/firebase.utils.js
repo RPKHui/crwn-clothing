@@ -20,11 +20,11 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   // we obtain a snapshot of the document/collections once we invoke get() on the reference
   const snapShot = await userRef.get();
-
+  const { displayName, email } = userAuth;
+  
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth;
     const createdAt = new firebase.firestore.Timestamp.now();
-
+    
     try {
       await userRef.set({
         displayName,
@@ -35,6 +35,12 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     } catch (err) {
       console.log("error creating user", err.message);
     }
+  } 
+  // if a display name hasn't been set for the current user in the database (firestore)
+  else if (!snapShot.data().displayName) {
+      userRef.update({
+          displayName
+      })
   }
 
   return userRef;
