@@ -23,11 +23,21 @@
   }
 
   .quantity {
-    padding-left: 20px;
+    display: flex;
+
+    .value {
+        margin: 0 10px
+    }
   }
 
-  .remove-button {
-    padding-left: 12px;
-    cursor: pointer;
+  .remove-button, .arrow {
+      cursor: pointer;
+      background: none;
+      font-size: inherit;
+      border: none;
+      display: inline-block;
+      text-align: center;
+      outline: none;
+      padding: 0
   }
 }
