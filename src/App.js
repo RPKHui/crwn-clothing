@@ -48,6 +48,8 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
+          {/* The route to ShopPage must not be exact as there is a nested route in ShopPage,
+              if we make it exact then we will not get to the nested components */}
           <Route path="/shop" component={ShopPage} />
           <Route exact path='/checkout' component={CheckoutPage} />
           <Route
