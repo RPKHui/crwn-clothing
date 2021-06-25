@@ -39,7 +39,11 @@ class SignUp extends React.Component {
         email,
         password
       );
-
+      // the returned user here is of type Firebase.User
+      // when we update the profile, we are only updating the profile
+      // of the user in authentication, not in the firestore
+      // but we will use the userAuth in creating an instance in the firestore
+      
       // we will update the profile to include a display name as well
       await user.updateProfile({
           displayName,

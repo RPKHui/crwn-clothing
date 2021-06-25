@@ -20,6 +20,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const { setCurrentUser } = this.props;
+    // addCollectionAndDocuments("collections")
     // auth.onAuthStateChanged adds an observer to the changes in the authentication state
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
@@ -51,7 +52,7 @@ class App extends React.Component {
           {/* The route to ShopPage must not be exact as there is a nested route in ShopPage,
               if we make it exact then we will not get to the nested components */}
           <Route path="/shop" component={ShopPage} />
-          <Route exact path='/checkout' component={CheckoutPage} />
+          <Route exact path="/checkout" component={CheckoutPage} />
           <Route
             exact
             path="/signin"

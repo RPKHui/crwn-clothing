@@ -3,6 +3,10 @@
     flex-direction: column;
     margin-bottom: 30px;
   
+    &:hover {
+      cursor: pointer;
+    }
+
     .title {
       font-size: 28px;
       margin-bottom: 25px;
