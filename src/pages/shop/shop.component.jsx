@@ -2,7 +2,7 @@ import React from "react";
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { fetchCollectionsStartAsync } from "../../redux/shop/shop.actions";
+import { fetchCollectionsStart } from "../../redux/shop/shop.actions";
 
 import CollectionsOverviewContainer from "../../components/collections-overview/collections-overview.container";
 import CollectionPageContainer from "../collection/collection.container";
@@ -16,8 +16,10 @@ class ShopPage extends React.Component {
   // shop reducer, that's why we will have a slight loading time as we are
   // handling an async call
   componentDidMount() {
-    const { fetchCollectionsStartAsync } = this.props;
-    fetchCollectionsStartAsync();
+    const { fetchCollectionsStart } = this.props;
+    // calling this will first set isFetching to true in the reducer
+    // then it will hit the sagas and do all the async call and mapping
+    fetchCollectionsStart();
   }
 
   render() {
@@ -39,11 +41,11 @@ class ShopPage extends React.Component {
 }
 
 // remember that mapDispatchToProps maps the functions that we want to our props
-// so we are receiving functions in the props that will be dispatched
-// to the connected store
-// so our fetchCollectionsStartAsync is a function, mapped to our props
+// so we are receiving functions in the props that will dispatch a certain 
+// object to the connected store, in the context of thunks a function,
+// so our fetchCollectionsStart is a function, mapped to our props
 const mapDispatchToProps = (dispatch) => ({
-  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+  fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 });
 
 export default connect(null, mapDispatchToProps)(ShopPage);

@@ -17,7 +17,8 @@ const mapStateToProps = createStructuredSelector({
 // when isLoading is false initially, collections overview
 // doesn't break as it is just mapping over an empty
 // array, when fetching started and isFetching becomes 
-// true, that's when the spinner comes in
+// true, that's when the spinner comes in, so theres
+// actually a very small delay before the spinner comes in
 const CollectionsOverviewContainer = compose(
     connect(mapStateToProps),
     WithSpinner

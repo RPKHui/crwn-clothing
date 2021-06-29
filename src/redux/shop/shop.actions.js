@@ -3,7 +3,7 @@ import { firestore } from "../../firebase/firebase.utils";
 import { convertCollectionsSnapshotToMap } from "../../firebase/firebase.utils";
 
 // returns an object
-export const fetchCollectionStart = () => ({
+export const fetchCollectionsStart = () => ({
   type: ShopActionTypes.FETCH_COLLECTIONS_START,
 });
 
@@ -18,10 +18,11 @@ export const fetchCollectionsFailure = (errorMessage) => ({
 });
 
 // returns a function that receives dispatch as an argument
+// used for thunks
 export const fetchCollectionsStartAsync = () => {
   return (dispatch) => {
     const collectionRef = firestore.collection("collections");
-    dispatch(fetchCollectionStart());
+    dispatch(fetchCollectionsStart());
 
     collectionRef
       .get()
