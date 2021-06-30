@@ -2,7 +2,7 @@ import { ShopActionTypes } from "./shop.types";
 import { firestore } from "../../firebase/firebase.utils";
 import { convertCollectionsSnapshotToMap } from "../../firebase/firebase.utils";
 
-// returns an object
+// returns only an object (pure)
 export const fetchCollectionsStart = () => ({
   type: ShopActionTypes.FETCH_COLLECTIONS_START,
 });

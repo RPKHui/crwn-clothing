@@ -12,6 +12,7 @@ const config = {
   measurementId: "G-KJB7WR70MQ",
 };
 
+// creates a profile for the current user in the backend (firestore)
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
 
@@ -48,7 +49,10 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 firebase.initializeApp(config);
 
-export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+export const addCollectionAndDocuments = async (
+  collectionKey,
+  objectsToAdd
+) => {
   // this is to create a new collection in firestore
   const collectionRef = firestore.collection(collectionKey);
 
@@ -57,7 +61,7 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
 
   //batch is basically a transaction, it can only run to finish or rollback
   const batch = firestore.batch();
-  objectsToAdd.forEach(obj => {
+  objectsToAdd.forEach((obj) => {
     // asks firestore to return a new document reference
     const newDocRef = collectionRef.doc();
     // adding the action of setting the new document into the collection into the batch job
@@ -65,10 +69,10 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => 
   });
 
   return await batch.commit();
-}
+};
 
-export const convertCollectionsSnapshotToMap = collections => {
-  const transformedCollection = collections.docs.map(doc => {
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.docs.map((doc) => {
     const { title, items } = doc.data();
 
     return {
@@ -76,14 +80,23 @@ export const convertCollectionsSnapshotToMap = collections => {
       id: doc.id,
       title,
       items,
-    }
-  })
+    };
+  });
 
   return transformedCollection.reduce((accumulator, collection) => {
     accumulator[collection.title.toLowerCase()] = collection;
     return accumulator;
   }, {});
-}
+};
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
+};
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
